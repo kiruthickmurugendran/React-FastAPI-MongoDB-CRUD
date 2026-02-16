@@ -3,7 +3,7 @@ from pymongo.server_api import ServerApi
 
 
 # Ensure password here
-uri = "mongodb+srv://user:password@cluster0.rw6bt1o.mongodb.net/?appName=Cluster0"
+uri = "mongodb+srv://user:kiruthick@cluster0.rw6bt1o.mongodb.net/?appName=Cluster0"
 
 client = MongoClient(uri, server_api=ServerApi('1'))
 

@@ -19,24 +19,28 @@ const App = () => {
     }
   )
 
-const handleSubmit = async(e) =>{
-    e.preventDefault()
-    try{
-      const response = await axios.post(`${API_URL}/`, user)
-      getData()
-      setUser(
-        {
-          id:uuid(),
-          name:"",
-          email:""
-        }
-      )
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (editState) {
+      await updateUser();
+    } else {
+      try {
+        await axios.post(`${API_URL}/`, user);
+        getData()
+        setUser(
+          {
+            id:uuid(),
+            name:"",
+            email:""
+          }
+        )
 
-    }catch(err){
-      console.log(err)
-  }
-}
-
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
 const getData = async() =>{
   try{
@@ -82,7 +86,7 @@ const deleteuser = async(id) => {
 
 const updateUser = async() =>{
   try{
-     const response = await axios.put(`${API_URL}/${user.id}`, user)
+     const response = await axios.put(`${API_URL}/${user._id}`, user)
      setUser(
       {
         id:uuid(),
@@ -108,7 +112,7 @@ const updateUser = async() =>{
         <input type="text" placeholder='email' name="email" value={user.email} onChange={handleChange} />
 
        {
-       editState === !true ? ( <button type='submit'> Submit</button>) :  <button type='edit' onClick={ ()=> updateUser(user.id)}> Update</button>
+       editState === true ? ( <button type='submit'> Submit</button>) :  <button type='edit' onClick={ ()=> updateUser(user._id)}> Update</button>
        }
       </form>
 
